@@ -3,9 +3,9 @@
 
 /* https://www.signal.com.tr/pdf/cat/8n-esp8266_spi_reference_en_v1.0.pdf */
 
-#define SPI_FREQ (10000000)
-//#define SPI_FREQ (20000000)                             //  1. 22.5Mhz     2. 45Mhz
-//#define SPI_FREQ (30000000)                             //  1. 22.5Mhz     2. 45Mhz
+// #define SPI_FREQ (10000000)
+// #define SPI_FREQ (20000000)                             //  1. 22.5Mhz     2. 45Mhz
+#define SPI_FREQ (30000000)                             //  1. 22.5Mhz     2. 45Mhz
 
 //Below are for spi HZ 22.5M
 #if (SPI_FREQ == 30000000)
@@ -94,7 +94,7 @@ struct spi_device_id esp_spi_id[] = {
 };
 MODULE_DEVICE_TABLE(spi, esp_spi_id);
 
-static int esp_cs0_pin = 16;
+static int esp_cs0_pin = 135; //PE7
 module_param(esp_cs0_pin, int, 0);
 MODULE_PARM_DESC(esp_cs0_pin, "SPI chip select zero");
 
@@ -111,7 +111,7 @@ static struct spi_board_info esp_board_spi_devices[] = {
     .max_speed_hz = MAX_SPEED_HZ,
     .bus_num = 1,
     .chip_select = 0,
-    .mode = 0,
+    .mode = SPI_MODE_3,
   },
 };
 
@@ -134,7 +134,7 @@ struct spi_device* sif_platform_new_device(void) {
 
 /* *** *** Interrupt *** *** */
 
-static int esp_interrupt = 26;
+static int esp_interrupt = 134; //PE6
 module_param(esp_interrupt, int, 0);
 MODULE_PARM_DESC(esp_interrupt, "Interrupt pin");
 
@@ -214,7 +214,7 @@ SDIO:
   GPIO11  SDCMD
 */
 
-static int esp_reset_gpio = 13;
+static int esp_reset_gpio = 133; //PE5
 module_param(esp_reset_gpio, int, 0);
 MODULE_PARM_DESC(esp_reset_gpio, "ESP8089 CHIP_EN GPIO number");
 
